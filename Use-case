@@ -1,0 +1,24 @@
+@startuml
+actor User
+
+rectangle "Telegram Bot System" {
+    usecase "Send Comment for Analysis" as UC1
+    usecase "Receive Analysis Result" as UC2
+    usecase "Request Related Articles" as UC3
+    usecase "Receive Articles (Pro & Con)" as UC4
+}
+
+rectangle "ChatGPT API" {
+    usecase "Analyze Comment" as UC5
+    usecase "Fetch Related Articles" as UC6
+}
+
+User --> UC1
+UC1 --> UC5 : "Request Analysis"
+UC5 --> UC2 : "Return Analysis Result"
+User <-- UC2
+
+UC1 --> UC6 : "Request Articles"
+UC6 --> UC4 : "Return Articles"
+User <-- UC4
+@enduml
