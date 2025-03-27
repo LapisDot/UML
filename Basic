@@ -16,8 +16,7 @@ class ChatGPT {
 }
 
 class AnalysisResult {
-    -validityScore: Float
-    -argumentativePower: Float
+    -validity: Boolean
     +getSummary(): String
 }
 
@@ -35,4 +34,5 @@ TelegramBot --> User : sends analysis result
 TelegramBot --> ChatGPT : requests articles
 ChatGPT --> TelegramBot : returns articles
 TelegramBot --> User : sends articles (pro & con)
+
 @enduml
