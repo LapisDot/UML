@@ -1,0 +1,36 @@
+@startuml
+class User
+
+class TelegramBot {
+    +receiveMessage(message: String)
+    +analyzeComment(comment: String): AnalysisResult
+    +sendResponse(result: AnalysisResult)
+    +requestArticles(comment: String): List<Article>
+    +sendArticles(articles: List<Article>)
+}
+
+class ChatGPT {
+    +requestAnalysis(comment: String): AnalysisResult
+    +fetchArticles(comment: String): List<Article>
+}
+
+class AnalysisResult {
+    -validity: Boolean
+    +getSummary(): String
+}
+
+class Article {
+    -title: String
+    -url: String
+    -stance: String
+    +getSummary(): String
+}
+
+User --> TelegramBot : sends comment
+TelegramBot --> ChatGPT : requests analysis
+ChatGPT --> TelegramBot : returns result
+TelegramBot --> User : sends analysis result
+TelegramBot --> ChatGPT : requests articles
+ChatGPT --> TelegramBot : returns articles
+TelegramBot --> User : sends articles (pro & con)
+@enduml
