@@ -18,7 +18,6 @@ UC1 --> UC5 : "Request Analysis"
 UC5 --> UC2 : "Return Analysis Result"
 User <-- UC2
 
-User --> UC3
 UC3 --> UC6 : "Request Articles"
 UC6 --> UC4 : "Return Articles"
 User <-- UC4
