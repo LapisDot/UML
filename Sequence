@@ -7,8 +7,12 @@ User -> TelegramBot : sends comment
 TelegramBot -> ChatGPT : requestAnalysis(comment)
 ChatGPT --> TelegramBot : return AnalysisResult(validity)
 
+alt if validity == 1
     TelegramBot -> ChatGPT : fetchArticles(comment)
     ChatGPT --> TelegramBot : return List<Article>
     TelegramBot -> User : send analysis result
     TelegramBot -> User : send articles (pro & con)
+else
+    TelegramBot -> User : send "invalid comment" message
+end
 @enduml
