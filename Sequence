@@ -1,0 +1,14 @@
+@startuml
+actor User
+participant TelegramBot
+participant ChatGPT
+
+User -> TelegramBot : sends comment
+TelegramBot -> ChatGPT : requestAnalysis(comment)
+ChatGPT --> TelegramBot : return AnalysisResult(validity)
+
+    TelegramBot -> ChatGPT : fetchArticles(comment)
+    ChatGPT --> TelegramBot : return List<Article>
+    TelegramBot -> User : send analysis result
+    TelegramBot -> User : send articles (pro & con)
+@enduml
