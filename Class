@@ -1,5 +1,8 @@
 @startuml
-class User
+class User {
+    -Name: String
+    -UserId: int
+}
 
 class TelegramBot {
     +receiveMessage(message: String)
@@ -9,7 +12,7 @@ class TelegramBot {
     +sendArticles(articles: List<Article>)
 }
 
-class ChatGPT {
+class LLM {
     +requestAnalysis(comment: String): AnalysisResult
     +fetchArticles(comment: String): List<Article>
 }
@@ -26,11 +29,15 @@ class Article {
     +getSummary(): String
 }
 
+' Добавляем отношения создания
+LLM --> AnalysisResult : creates
+LLM --> Article : creates
+
 User --> TelegramBot : sends comment
-TelegramBot --> ChatGPT : requests analysis
-ChatGPT --> TelegramBot : returns result
+TelegramBot --> LLM : requests analysis
+LLM --> TelegramBot : returns result
 TelegramBot --> User : sends analysis result
-TelegramBot --> ChatGPT : requests articles
-ChatGPT --> TelegramBot : returns articles
+TelegramBot --> LLM : requests articles
+LLM --> TelegramBot : returns articles
 TelegramBot --> User : sends articles (pro & con)
 @enduml
