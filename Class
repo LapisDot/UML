@@ -8,7 +8,6 @@ class TelegramBot {
     +receiveMessage(message: String)
     +analyzeComment(comment: String): AnalysisResult
     +sendResponse(result: AnalysisResult)
-    +requestArticles(comment: String): List<Article>
     +sendArticles(articles: List<Article>)
 }
 
@@ -37,7 +36,6 @@ User --> TelegramBot : sends comment
 TelegramBot --> LLM : requests analysis
 LLM --> TelegramBot : returns result
 TelegramBot --> User : sends analysis result
-TelegramBot --> LLM : requests articles
 LLM --> TelegramBot : returns articles
 TelegramBot --> User : sends articles (pro & con)
 @enduml
