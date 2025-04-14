@@ -1,0 +1,23 @@
+@startuml
+title Состояния TelegramBot
+
+[*] --> Idle : Инициализация
+
+Idle --> WaitingForAnalysis : Получен комментарий\n(receiveMessage)
+WaitingForAnalysis --> ProcessingAnalysis : Отправлен запрос\nв LLM (requestAnalysis)
+
+ProcessingAnalysis --> CheckingValidity : Получен AnalysisResult
+
+state CheckingValidity {
+    [*] --> Valid
+    [*] --> Invalid
+
+    Valid --> FetchingArticles : Запрос статей\n(fetchArticles)
+    Invalid --> Idle : Отправлено "Invalid comment"
+}
+
+FetchingArticles --> SendingResponse : Получены статьи\n(List<Article>)
+SendingResponse --> Idle : Результат отправлен\nпользователю
+
+Idle --> [*] : Завершение работы
+@enduml
